@@ -3,25 +3,16 @@
  * @return {number}
  */
 var maximumPopulation = function(logs) {
-    let candidate = [];
-    function getPopulation(year) {
-        let cnt = 0;
-        for (let [birth, death] of logs) {
-            if (birth <= year && year < death) cnt++;
-        }
-        console.log(`${year} is ${cnt}`)
-        return cnt;
-    }
+    let arr = Array(100).fill(0);
+    let res = 1950;
+    let maxP = 0;
     for (let [birth, death] of logs) {
-        candidate.push(birth);
-    }
-    let maxPop = 0;
-    let res = candidate[0];
-    for (let birth of candidate) {
-        let curPop = getPopulation(birth)
-        if(maxPop < curPop || (birth <= res && maxPop == curPop)) {
-            maxPop = curPop;
-            res = birth;
+        for (let i=birth; i<death; i++) {
+            arr[i-1950]++;
+            if(maxP < arr[i-1950] || (maxP == arr[i-1950] && i < res)) {
+                maxP = arr[i-1950];
+                res = i;
+            }
         }
     }
     return res;

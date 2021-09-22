@@ -12,6 +12,9 @@ var plusOne = function(digits) {
             calc = 0;
             carry = 1;
         }
+        if (calc == digits[i]) {
+            break;
+        }
         digits[i] = calc;
     }
     if (carry == 1) {

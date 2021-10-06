@@ -5,13 +5,14 @@
 var minRemoveToMakeValid = function(s) {
     let balance = 0;
     let stk = [];
-    for (let i=0; i<s.length; i++) {
-        if (s[i] == '(') {
+    let str = s.split('');
+    for (let i=0; i<str.length; i++) {
+        if (str[i] == '(') {
             stk.push(i);
         }
-        if (s[i] == ')') {
+        if (str[i] == ')') {
             if (stk.length == 0) {
-                s = s.substring(0, i) + s.substring(i+1, s.length);
+                str[i] = '';
                 i--;
                 continue;
             }
@@ -22,7 +23,7 @@ var minRemoveToMakeValid = function(s) {
     }
     while (stk.length > 0) {
         let cur = stk.pop();
-        s = s.substring(0, cur) + s.substring(cur+1, s.length);
+        str[cur] = ''
     }
-    return s;
+    return str.join('');
 };

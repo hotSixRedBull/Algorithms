@@ -1,8 +1,8 @@
 class Solution {
     public boolean checkIfPangram(String sentence) {
         HashMap<Character, Integer> map = new HashMap<>();
-        for (char c : sentence.toCharArray()) {
-            map.put(c, 1);
+        for (int i=0; i<sentence.length(); i++) {
+            map.put(sentence.charAt(i), 1);
         }
         return map.size() == 26;
     }

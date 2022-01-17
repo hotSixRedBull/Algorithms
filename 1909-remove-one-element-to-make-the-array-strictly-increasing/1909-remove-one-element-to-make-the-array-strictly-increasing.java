@@ -1,29 +1,31 @@
 class Solution {
     public boolean canBeIncreasing(int[] nums) {
-        boolean extraLife = true;
+        int cnt = 0;
         for (int i=0; i<nums.length-1; i++) {
-            if (nums[i] < nums[i+1]) {
-                continue;
+            if (cnt > 1) {
+                return false;
             }
-            else if (extraLife) {
-                if (i > 0) {
-                    if (nums[i-1] < nums[i+1] 
-                        || (i+2 < nums.length && nums[i] < nums[i+2])
-                        || (i+2 == nums.length)) {
-                        extraLife = false;
-                        continue;
+            if (nums[i] >= nums[i+1]) {
+                if (cnt == 0) {
+                    if (i > 0) {
+                        if (nums[i-1] < nums[i+1] 
+                            || (i+2 < nums.length && nums[i] < nums[i+2])
+                            || (i+2 == nums.length)) {
+                            cnt++;
+                            continue;
+                        }
+                        else {
+                            return false;
+                        }
                     }
                     else {
-                        return false;
+                        cnt++;
+                        continue;
                     }
                 }
                 else {
-                    extraLife = false;
-                    continue;
+                    return false;
                 }
-            }
-            else {
-                return false;
             }
         }
         return true;

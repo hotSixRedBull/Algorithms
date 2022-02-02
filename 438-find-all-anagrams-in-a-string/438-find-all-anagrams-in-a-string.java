@@ -1,41 +1,28 @@
 class Solution {
-    int[] map;
     public List<Integer> findAnagrams(String s, String p) {
-        map = new int[26];
+        int[] pMap = new int[26];
         for (char c : p.toCharArray()) {
-            map[c-'a']++;
+            pMap[c-'a']++;
         }
         
         List<Integer> list = new ArrayList();
+        int[] sMap = new int[26];
         for (int i=0; i<s.length(); i++) {
-            if (i+p.length() <= s.length()) {
-                String substring = s.substring(i, i+p.length());
-                if (isAnagram(substring)) {
-                    list.add(i);
+            sMap[s.charAt(i)-'a']++;
+            if (i >= p.length()) {
+                sMap[s.charAt(i-p.length())-'a']--;
+            }
+            boolean isAnagram = true;
+            for (int check=0; check<26; check++) {
+                if (sMap[check] != pMap[check]) {
+                    isAnagram = false;
+                    break;
                 }
+            }
+            if (isAnagram) {
+                list.add(i-p.length()+1);
             }
         }
         return list;
-    }
-    
-    public boolean isAnagram(String s) {
-        int[] mapClone = Arrays.copyOf(map, 26);
-        // System.out.println(Arrays.toString(mapClone));
-        for (char c : s.toCharArray()) {
-            if (mapClone[c-'a'] == 0) {
-                return false;
-            }
-            else {
-                mapClone[c-'a']--;
-            }
-        }
-        
-        for (int i=0; i<26; i++) {
-            if (mapClone[i] != 0) {
-                return false;
-            }
-        }
-        
-        return true;
     }
 }

@@ -1,4 +1,4 @@
-<h2>253. Meeting Rooms II</h2><h3>Medium</h3><hr><div><p>Given an array of meeting time intervals <code>intervals</code> where <code>intervals[i] = [start<sub>i</sub>, end<sub>i</sub>]</code>, return <em>the minimum number of conference rooms required</em>.</p>
+<h2>  Meeting Rooms II</h2><hr><div><p>Given an array of meeting time intervals <code>intervals</code> where <code>intervals[i] = [start<sub>i</sub>, end<sub>i</sub>]</code>, return <em>the minimum number of conference rooms required</em>.</p>
 
 <p>&nbsp;</p>
 <p><strong>Example 1:</strong></p>

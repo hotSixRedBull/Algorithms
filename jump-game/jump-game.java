@@ -1,17 +1,24 @@
 class Solution {
     public boolean canJump(int[] nums) {
-        boolean[] canJump = new boolean[nums.length];
-        canJump[nums.length-1] = true;
-        for (int i=nums.length-2; i>=0; i--) {
-            int jumpCapability = nums[i];
-            for (int j=1; j<=jumpCapability; j++) {
-                if (i+j < nums.length && canJump[i+j] == true) {
-                    canJump[i] = true;
-                    break;
+        Queue<Integer> q = new ArrayDeque();
+        boolean[] visit = new boolean[nums.length];
+        q.add(0);
+        while (q.size() > 0) {
+            int cur = q.poll();
+            if (nums[cur] + cur >= nums.length-1) {
+                return true;
+            }
+            if (nums[cur] == 0) {
+                continue;
+            }
+            for (int i=cur+1; i<=cur+nums[cur]; i++) {
+                if (i < nums.length
+                    && visit[i] == false) {
+                    visit[i] = true;
+                    q.add(i);
                 }
             }
         }
-        //System.out.println(Arrays.toString(canJump));
-        return canJump[0] == true;
+        return false;
     }
 }

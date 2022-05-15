@@ -15,12 +15,13 @@
  */
 class Solution {
     public int deepestLeavesSum(TreeNode root) {
-        Queue<TreeNode> q = new ArrayDeque();
+        ArrayDeque<TreeNode> q = new ArrayDeque();
+        ArrayDeque<TreeNode> nextQ = new ArrayDeque();
         q.add(root);
         int sum = 0;
         do {
             sum = 0;
-            Queue<TreeNode> nextQ = new ArrayDeque();
+            nextQ.clear();
             while (q.size() > 0) {
                 TreeNode cur = q.poll();
                 if (cur.left == null
@@ -34,7 +35,7 @@ class Solution {
                     nextQ.add(cur.right);
                 }
             }
-            q = nextQ;
+            q = nextQ.clone();
         } while(q.size() > 0);
         return sum;
     }

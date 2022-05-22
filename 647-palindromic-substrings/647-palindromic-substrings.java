@@ -1,6 +1,5 @@
 class Solution {
     public int countSubstrings(String s) {
-        boolean[][] isPal = new boolean[s.length()][s.length()];
         int cnt = 0;
         for (int i=0; i<s.length(); i++) {
             int start = i;
@@ -8,7 +7,8 @@ class Solution {
             while (start >= 0
                   && end <s.length()
                   && s.charAt(start) == s.charAt(end)) {
-                isPal[start--][end++] = true;
+                start--;
+                end++;
                 cnt++;
             }
             start = i;
@@ -16,7 +16,8 @@ class Solution {
             while (start >= 0
                   && end <s.length()
                   && s.charAt(start) == s.charAt(end)) {
-                isPal[start--][end++] = true;
+                start--;
+                end++;
                 cnt++;
             }
         }

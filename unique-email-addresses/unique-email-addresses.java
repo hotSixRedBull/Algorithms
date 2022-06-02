@@ -28,3 +28,7 @@ class Solution {
         return set.size();
     }
 }
+/*
+Approach 1: Linear Iteration
+Approach 2: Using String Split Method
+*/

@@ -14,6 +14,6 @@ class Solution {
                 hi = mid-1;
             }
         }
-        return lo < nums.length && nums[lo] == target ? lo : -1;
+        return -1;
     }
 }

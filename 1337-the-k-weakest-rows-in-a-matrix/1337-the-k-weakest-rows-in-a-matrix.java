@@ -1,50 +1,39 @@
 class Solution {
     public int[] kWeakestRows(int[][] mat, int k) {
-        List<Pair<Integer, Integer>> list = new ArrayList();
-        for (int i=0; i<mat.length; i++) {
-            list.add(new Pair(i, getPowerWithoutIndex(mat[i])));
-        }
-        // System.out.println("Before sort: "+list);
-        Collections.sort(list, new Comparator<Pair<Integer, Integer>>() {
+        int[] soldiers = new int[mat.length];
+        PriorityQueue<Integer> q = new PriorityQueue(new Comparator<Integer>() {
             @Override
-            public int compare(Pair<Integer, Integer> arg0, Pair<Integer, Integer> arg1) {
-                if (arg0.getValue() < arg1.getValue()) {
-                    return -1;
+            public int compare(Integer a, Integer b) {
+                if (soldiers[a] == soldiers[b]) {
+                    return a-b;
                 }
-                else if (arg0.getValue() > arg1.getValue()) {
-                    return 1;
-                }
-                else {
-                    if (arg0.getKey() < arg1.getKey()) {
-                        return -1;
-                    }
-                    else if(arg0.getKey() > arg1.getKey()) {
-                        return 1;
-                    }
-                    return 0;
-                }
+                return soldiers[a]-soldiers[b];
             }
         });
-        int[] ans = new int[k];
-        for (int i=0; i<k; i++) {
-            ans[i] = list.get(i).getKey();
-        }
-        return ans;
-        
-    }
-    
-    public int getPowerWithoutIndex(int[] arr) {
-        int lo = 0;
-        int hi = arr.length-1;
-        while (lo < hi) {
-            int mid = lo - (lo - hi) / 2;
-            if (arr[mid] == 1) {
-                lo = mid+1;
+        for (int i=0; i<mat.length; i++) {
+            int lo = 0;
+            int hi = mat[i].length-1;
+            while (lo < hi) {
+                int mid = lo - (lo - hi) / 2;
+                if (mat[i][mid] == 1) {
+                    lo = mid+1;
+                } 
+                else {
+                    hi = mid;
+                }
+            }
+            if (mat[i][lo] == 1) {
+                soldiers[i] = lo+1;
             }
             else {
-                hi = mid;
+                soldiers[i] = lo;
             }
+            q.add(i);
         }
-        return arr[lo] == 1 ? lo+1 : lo;
+        int[] ans = new int[k];
+        for (int i=0; i<k; i++) {
+            ans[i] = q.poll();
+        }
+        return ans;
     }
 }

@@ -9,3 +9,8 @@ public class Solution {
         return cnt;
     }
 }
+
+/*
+n & (n-1) = remove rightmost 1
+n & -n = get rightmost 1
+*/

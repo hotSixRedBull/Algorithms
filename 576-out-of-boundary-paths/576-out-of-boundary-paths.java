@@ -1,3 +1,5 @@
+// saw answer
+// write myself
 class Solution {
     int[] dr;
     int[] dc;

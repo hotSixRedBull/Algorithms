@@ -1,3 +1,5 @@
+// saw solution
+// wrote code on my own after understanding
 class Solution {
     public int maxProfit(int k, int[] prices) {
         int n = prices.length;

@@ -22,3 +22,7 @@ class Solution {
         return sum;
     }
 }
+
+/*
+solved on my own
+*/

@@ -30,7 +30,7 @@ class Solution {
 }
 
 /*
-A1. sort
+A1. sort and greedy
 
 A2. pq?
 I can't find a way to remove minimum value on heap.
@@ -40,4 +40,5 @@ the logic is,
   - add another number
   - pop the min one if the largest one can make triangle.
   - pop the max one if the largest can't make a triangle.
+  
 */

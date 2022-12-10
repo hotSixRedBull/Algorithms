@@ -20,18 +20,6 @@ class Solution {
     public int maxProduct(TreeNode root) {
         sumMap = new HashMap();
         sum = 0;
-        Queue<TreeNode> q = new ArrayDeque();
-        q.add(root);
-        while (q.size() > 0) {
-            TreeNode cur = q.poll();
-            sum += cur.val;
-            if (cur.left != null) {
-                q.add(cur.left);
-            }
-            if (cur.right != null) {
-                q.add(cur.right);
-            }
-        }
         getLowerSum(root);
         return (int) (maxProduct(root, 0) % 1_000_000_007);
     }
@@ -41,6 +29,7 @@ class Solution {
             return 0;
         }
         if (sumMap.containsKey(node) == false) {
+            sum += node.val;
             sumMap.put(node, node.val + getLowerSum(node.left) + getLowerSum(node.right));
         }
         return sumMap.get(node);

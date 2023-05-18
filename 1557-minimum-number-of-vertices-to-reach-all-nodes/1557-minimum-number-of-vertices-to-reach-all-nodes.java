@@ -9,24 +9,10 @@ class Solution {
             adj.get(from).add(to);
             indegree[to]++;
         }
-        Queue<Integer> q = new ArrayDeque();
         List<Integer> result = new ArrayList();
         for (int i=0; i<n; i++) {
             if (indegree[i] == 0) {
-                q.add(i);
                 result.add(i);
-            }
-        }
-        while (q.size() > 0) {
-            int cur = q.poll();
-            if (adj.containsKey(cur) == false) {
-                continue;
-            }
-            for (int nei : adj.get(cur)) {
-                indegree[nei]--;
-                if (indegree[nei] == 0) {
-                    q.add(nei);
-                }
             }
         }
         return result;

@@ -1,16 +1,18 @@
 class Solution {
     public int maxProfit(int[] prices, int fee) {
         int n = prices.length;
-        int[] hold = new int[n];
-        int[] free = new int[n];
-        hold[0] = -prices[0];
-        free[0] = 0;
+        int hold = -prices[0];
+        int free = 0;
         
         for (int i=1; i<n; i++) {
-            hold[i] = Math.max(hold[i-1], free[i-1]-prices[i]);
-            free[i] = Math.max(free[i-1], hold[i-1]+prices[i]-fee);
+            int nextHold = Math.max(hold, free-prices[i]);
+            int nextFree = Math.max(free, hold+prices[i]-fee);
+            hold = nextHold;
+            free = nextFree;
         }
         
-        return Math.max(hold[n-1], free[n-1]);
+        return Math.max(hold, free);
     }
 }
+
+//read solution

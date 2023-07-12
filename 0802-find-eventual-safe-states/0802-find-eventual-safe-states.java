@@ -36,7 +36,7 @@ class Solution {
                 }
             }
             
-            System.out.println(nq);
+            // System.out.println(nq);
             q = nq;
         }
         Collections.sort(result);

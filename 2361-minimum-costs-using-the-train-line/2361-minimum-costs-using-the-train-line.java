@@ -9,20 +9,20 @@ class Solution {
             dists[i] = Integer.MAX_VALUE;
         }
         
-        Map<Integer, Map<Integer, Long>> distMap = new HashMap();
-        for (int i=0; i<2*n+2; i++) {
-            distMap.put(i, new HashMap());
-        }
+//         Map<Integer, Map<Integer, Long>> distMap = new HashMap();
+//         for (int i=0; i<2*n+2; i++) {
+//             distMap.put(i, new HashMap());
+//         }
         
-        for (int i=0; i<n; i++) {
-            distMap.get(i).put(i+n+1, (long) expressCost);
-            distMap.get(i+n+1).put(i, (long) 0);
-        }
+//         for (int i=0; i<n; i++) {
+//             distMap.get(i).put(i+n+1, (long) expressCost);
+//             distMap.get(i+n+1).put(i, (long) 0);
+//         }
         
-        for (int i=0; i<regular.length; i++) {
-            distMap.get(i).put(i+1, (long) regular[i]);
-            distMap.get(i+n+1).put(i+n+2, (long) express[i]);
-        }
+//         for (int i=0; i<regular.length; i++) {
+//             distMap.get(i).put(i+1, (long) regular[i]);
+//             distMap.get(i+n+1).put(i+n+2, (long) express[i]);
+//         }
         
         // System.out.println(distMap);
         

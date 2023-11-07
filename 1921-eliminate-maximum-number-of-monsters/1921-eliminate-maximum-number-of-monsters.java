@@ -8,7 +8,7 @@ class Solution {
             //t = dist/speed
             rq.add((int)Math.ceil((double)dist[i]/(double)speed[i]));
         }
-        System.out.println(rq);
+        // System.out.println(rq);
         int t = 1;
         rq.poll();
         while (rq.size() > 0) {

@@ -4,7 +4,7 @@ class Solution {
         for (int num : nums) {
             cnt.put(num, cnt.getOrDefault(num, 0)+1);
         }
-        System.out.println(cnt);
+        // System.out.println(cnt);
         
         int min = 0;
         for (int num : cnt.keySet()) {

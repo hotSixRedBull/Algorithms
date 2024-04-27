@@ -1,93 +1,97 @@
 class UnionFind {
-    int[] p; //parent
-    int[] r; //rank
-    int size;
-    Set<Integer> parents;
-    public UnionFind(int siz) {
-        p = new int[siz+1];
-        r = new int[siz+1];
-        size = 1;
-        parents = new HashSet();
+    int[] parent;
+    int[] rank;
+    int m;
+    int n;
+    Set<Integer> ps;
+    
+    public UnionFind(int m, int n) {
+        this.m = m;
+        this.n = n;
+        parent = new int[m*n];
+        rank = new int[m*n];
+        Arrays.fill(rank, 0);
+        Arrays.fill(parent, -1);
+        ps = new HashSet();
     }
-    public int add() {
-        p[size] = size;
-        parents.add(size);
-        size++;
-        return size-1;
+    
+    public void add(int a) {
+        parent[a] = a;
+        ps.add(a);
     }
-    public int find(int num) {
-        if (p[num] == num) {
-            return num;
+    
+    public int find(int a) {
+        if (parent[a] == a) {
+            return a;
         }
-        int cur = num;
-        while (p[cur] != cur) {
-            cur = p[cur];
+        int cur = a;
+        while (parent[cur] != cur) {
+            cur = parent[cur];
+            parent[a] = parent[cur];
         }
-        return p[num] = cur;
+        return parent[a];
     }
-    public void union(int a, int b) {
-        // System.out.println(String.format("union(%d, %d)", a, b));
-        // System.out.println(String.format("Before union: %s", parents));
+    
+    public boolean union(int a, int b) {
         int pa = find(a);
         int pb = find(b);
-        if (r[pa] < r[pb]) {
-            p[pb] = p[pa];
-            parents.remove(pb);
-            parents.add(pa);
-            r[pa]++;
+        if (pa == pb) {
+            return false;
+        }
+        if (rank[pa] <= rank[pb]) {
+            rank[pa]++;
+            parent[parent[b]] = pa;
+            ps.remove(pb);
         }
         else {
-            p[pa] = p[pb];
-            parents.remove(pa);
-            parents.add(pb);
-            r[pb]++;
+            rank[pb]++;
+            parent[parent[a]] = pb;
+            ps.remove(pa);
         }
-        // System.out.println(String.format("After union: %s", parents));
+        return true;
     }
+    
+    public int hash(int r, int c) {
+        return r*n+c;
+    }
+    
+    public int[] unhash(int a) {
+        return new int[]{(int)Math.floor(a/n), a%n};
+    }
+    
     public int getIslands() {
-        // System.out.println(parents);
-        return parents.size();
+        return ps.size();
     }
 }
 
 class Solution {
     public List<Integer> numIslands2(int m, int n, int[][] positions) {
-        int[][] coorToNum = new int[m][n];
-        UnionFind uf = new UnionFind(positions.length);
-        int[] dr = new int[]{-1,0,1,0};
-        int[] dc = new int[]{0,1,0,-1};
+        int[][] grid = new int[m][n];
+        UnionFind uf = new UnionFind(m, n);
+        int[] dr = new int[]{-1, 0, 1, 0};
+        int[] dc = new int[]{0, 1, 0, -1};
+        
         List<Integer> result = new ArrayList();
-        for (int[] position : positions) {
-            int r = position[0];
-            int c = position[1];
-            if (coorToNum[r][c] != 0) {
-                result.add(uf.getIslands());
-                continue;
-            }
-            int index = uf.add();
-            coorToNum[r][c] = index;
+        for (int[] p : positions) {
+            grid[p[0]][p[1]] = 1;
+            int key = uf.hash(p[0], p[1]);
+            uf.add(key);
             for (int i=0; i<4; i++) {
-                int nr = r + dr[i];
-                int nc = c + dc[i];
-                if (nr < 0 || nc < 0 || nr >= m || nc >= n || coorToNum[nr][nc] == 0) {
+                int nr = p[0] + dr[i];
+                int nc = p[1] + dc[i];
+                if (nr < 0
+                   || nc < 0
+                   || nr >= m
+                   || nc >= n
+                   || grid[nr][nc] != 1) {
                     continue;
                 }
-                uf.union(index, coorToNum[nr][nc]);
+                int neighborKey = uf.hash(nr, nc);
+                uf.union(key, neighborKey);
             }
             result.add(uf.getIslands());
         }
+        
         return result;
     }
 }
-
-/*
-3
-3
-[[0,1],[1,2],[2,1],[1,0],[0,2],[0,0],[1,1]]
-3
-3
-[[0,0],[0,1],[1,2],[1,2]]
-3
-3
-[[0,0],[2,0],[0,1],[2,1],[0,2],[2,2],[0,1],[1,2]]
-*/

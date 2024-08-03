@@ -9,13 +9,9 @@ class Solution {
         }
         //make window
         int cnt0 = 0;
-        int cnt1 = 0;
         for (int i=0; i<cnt; i++) {
             if (nums[i] == 0) {
                 cnt0++;
-            }
-            else {
-                cnt1++;
             }
         }
         
@@ -24,14 +20,8 @@ class Solution {
             if (nums[i-cnt] == 0) {
                 cnt0--;
             }
-            else {
-                cnt1--;
-            }
             if (nums[i] == 0) {
                 cnt0++;
-            }
-            else {
-                cnt1++;
             }
             min = Math.min(min, cnt0);
         }
@@ -41,14 +31,8 @@ class Solution {
             if (nums[prev] == 0) {
                 cnt0--;
             }
-            else {
-                cnt1--;
-            }
             if (nums[i] == 0) {
                 cnt0++;
-            }
-            else {
-                cnt1++;
             }
             min = Math.min(min, cnt0);
         }
